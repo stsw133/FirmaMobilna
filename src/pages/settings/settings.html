@@ -1,0 +1,105 @@
+<ion-header>
+	<ion-navbar hideBackButton>
+		<ion-buttons margin-left left style="width:80px">
+			<button ion-button icon-only (click)="openHomePage()">
+				<ion-icon name="home"></ion-icon>
+			</button>
+			<button ion-button icon-only (click)="openLastPage()">
+				<ion-icon name="arrow-back"></ion-icon>
+			</button>
+		</ion-buttons>
+		<ion-title text-center>{{ 'SETTINGS' | translate }}</ion-title>
+		<ion-buttons margin-right right style="width:80px" menuToggle>
+			<button ion-button icon-only>
+				<ion-badge [hidden]="quickMenu.messages.length+quickMenu.notifications.length+quickMenu.warnings.length<1" [color]="quickMenu.warnings.length>0 ? 'danger' : 'primary'">{{ quickMenu.messages.length+quickMenu.notifications.length }}</ion-badge>&nbsp;
+				<ion-icon name="menu"></ion-icon>
+			</button>
+		</ion-buttons>
+	</ion-navbar>
+</ion-header>
+
+<ion-content>
+	<ion-toolbar [class]="platform.width()<1000 ? 'toolbar toolbar-md listNarrow' : 'toolbar toolbar-md listWide'" no-lines>
+		<button ion-button [color]="data.tabs==0 ? 'primary' : 'lgray'" (click)="selectTabs(0)">{{ 'SETTINGS_GENERAL' | translate }}</button>
+		<button ion-button [color]="data.tabs==1 ? 'primary' : 'lgray'" (click)="selectTabs(1)">{{ 'SETTINGS_THEMING' | translate }}</button>
+		<button ion-button [color]="data.tabs==2 ? 'primary' : 'lgray'" (click)="selectTabs(2)">{{ 'SETTINGS_SECURITY' | translate }}</button>
+		<button ion-button [color]="data.tabs==3 ? 'primary' : 'lgray'" (click)="selectTabs(3)">{{ 'LANGUAGE' | translate }}</button>
+		<button hidden ion-button [color]="data.tabs==4 ? 'primary' : 'lgray'" (click)="selectTabs(4)">{{ 'SETTINGS_CONNECT' | translate }}</button>
+	</ion-toolbar>
+	<br>
+	<!-- tab0 -->
+	<ion-list *ngIf="data.tabs==0" [class]="platform.width()<1000 ? 'list list-md listNarrow' : 'list list-md listWide'" no-lines>
+		<ion-item>
+			<ion-label><b>{{ 'SETTINGS_SHOWNOTIFICATIONS' | translate }}:</b></ion-label>
+			<ion-toggle disabled color="primary" checked></ion-toggle>
+		</ion-item>
+	</ion-list>
+	<!-- tab1 -->
+	<ion-list *ngIf="data.tabs==1" [class]="platform.width()<1000 ? 'list list-md listNarrow' : 'list list-md listWide'" no-lines>
+		<ion-item>
+			<ion-icon name="bulb" item-left></ion-icon>
+			<ion-label fixed><b>{{ 'SETTINGS_THEME' | translate }}:</b></ion-label>
+			<ion-select [(ngModel)]="selectedTheme" (ionChange)="toggleAppTheme()">
+				<ion-option value="theme-light">light</ion-option>
+				<ion-option value="theme-dark">dark</ion-option>
+				<ion-option value="theme-pink">pink</ion-option>
+			</ion-select>
+		</ion-item>
+		<ion-item>
+			<ion-icon name="desktop" item-left></ion-icon>
+			<ion-label fixed><b>{{ 'SETTINGS_WALLPAPER' | translate }}:</b></ion-label>
+			<ion-select [(ngModel)]="account.wallpaper">
+				<ion-option value="none">none</ion-option>
+			</ion-select>
+		</ion-item>
+	</ion-list>
+	<!-- tab2 -->
+	<ion-list *ngIf="data.tabs==2" [class]="platform.width()<1000 ? 'list list-md listNarrow' : 'list list-md listWide'" no-lines>
+		<ion-item>
+			<ion-label fixed><b>{{ 'SETTINGS_OLDPASSWORD' | translate }}:</b></ion-label>
+			<ion-input placeholder="{{ 'SETTINGS_OLDPASSWORD' | translate }}" [(ngModel)]="data.oldPassword" type="password" clearInput></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label fixed><b>{{ 'SETTINGS_NEWPASSWORD' | translate }}:</b></ion-label>
+			<ion-input placeholder="{{ 'SETTINGS_NEWPASSWORD' | translate }}" [(ngModel)]="data.newPassword" type="password" clearInput></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label fixed><b>{{ 'REPEAT' | translate }}:</b></ion-label>
+			<ion-input placeholder="{{ 'REPEAT' | translate }}" [(ngModel)]="data.newRepass" type="password" clearInput></ion-input>
+		</ion-item>
+	</ion-list>
+	<!-- tab3 -->
+	<ion-list radio-group [(ngModel)]="account.language" *ngIf="data.tabs==3" [class]="platform.width()<1000 ? 'list list-md listNarrow' : 'list list-md listWide'" no-lines>
+		<ion-item>
+			<ion-label fixed><b>{{ 'LANGUAGE_EN' | translate }}</b></ion-label>
+			<ion-radio value="en"></ion-radio>
+		</ion-item>
+		<ion-item>
+			<ion-label fixed><b>{{ 'LANGUAGE_PL' | translate }}</b></ion-label>
+			<ion-radio value="pl"></ion-radio>
+		</ion-item>
+	</ion-list>
+	<!-- tab4 -->
+	<ion-list *ngIf="data.tabs==4" [class]="platform.width()<1000 ? 'list list-md listNarrow' : 'list list-md listWide'" no-lines>
+		<ion-item>
+			<ion-icon style="width:24px" color="secondary" name="logo-google"></ion-icon>
+			tu bydzie konekt z guglem
+		</ion-item>
+		<ion-item>
+			<ion-icon style="width:24px" color="primary" name="logo-facebook"></ion-icon>
+			tu bydzie konekt z fejsem
+		</ion-item>
+		<ion-item>
+			<ion-icon style="width:24px" color="quaternary" name="logo-twitter"></ion-icon>
+			tu bydzie konekt z tłiterem
+		</ion-item>
+	</ion-list>
+	<!-- end -->
+	<br>
+	<ion-toolbar [class]="platform.width()<1000 ? 'toolbar toolbar-md listNarrow' : 'toolbar toolbar-md listWide'" no-lines>
+		<div text-center>
+			<button ion-button color="secondary" style="width:200px; max-width:40%;" (click)="saveChanges()">{{ 'SAVE' | translate }}</button>
+		</div>
+	</ion-toolbar>
+	<br>
+</ion-content>

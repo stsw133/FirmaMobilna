@@ -1,0 +1,82 @@
+<ion-header>
+	<ion-navbar hideBackButton>
+		<ion-buttons margin-left left style="width:80px">
+			<button ion-button icon-only navPop>
+				<ion-icon name="close"></ion-icon>
+			</button>
+		</ion-buttons>
+		<ion-title text-center>{{ 'EDIT' | translate }}:<br><span style="font-size:14px">({{ selectedItem.id }}) {{ selectedItem.forename }} {{ selectedItem.lastname }}</span></ion-title>
+		<ion-buttons margin-right right style="width:80px">
+			
+		</ion-buttons>
+	</ion-navbar>
+</ion-header>
+
+<ion-content>
+	<ion-toolbar [class]="platform.width()<1000 ? 'toolbar toolbar-md listNarrow' : 'toolbar toolbar-md listWide'" no-lines>
+		<button ion-button [color]="data.tabs==0 ? 'primary' : 'lgray'" (click)="selectTabs(0)">{{ 'CLIENTS_GENERAL' | translate }}</button>
+		<button ion-button [color]="data.tabs==1 ? 'primary' : 'lgray'" (click)="selectTabs(1)">{{ 'CLIENTS_CONTACTS' | translate }}</button>
+		<button ion-button [color]="data.tabs==2 ? 'primary' : 'lgray'" (click)="selectTabs(2)">{{ 'CLIENTS_NOTES' | translate }}</button>
+	</ion-toolbar>
+	<br>
+	<!-- tab0 -->
+	<ion-list *ngIf="data.tabs==0" [class]="platform.width()<1000 ? 'list list-md listNarrow' : 'list list-md listWide'" no-lines>
+		<ion-item>
+			<ion-label fixed><b>{{ 'ACCOUNT_FORENAME' | translate }}:</b></ion-label>
+			<ion-input placeholder="{{ 'ACCOUNT_FORENAME' | translate }}" [(ngModel)]="selectedItem.forename" type="text" clearInput></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label fixed><b>{{ 'ACCOUNT_LASTNAME' | translate }}:</b></ion-label>
+			<ion-input placeholder="{{ 'ACCOUNT_LASTNAME' | translate }}" [(ngModel)]="selectedItem.lastname" type="text" clearInput></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label fixed><b>{{ 'CLIENTS_PESEL' | translate }}:</b></ion-label>
+			<ion-input placeholder="{{ 'CLIENTS_PESEL' | translate }}" [(ngModel)]="selectedItem.pesel" type="text" clearInput></ion-input>
+		</ion-item>
+		<br>
+		<ion-item>
+			<ion-label fixed><b>{{ 'CLIENTS_TYPE' | translate }}:</b></ion-label>
+			<ion-select [(ngModel)]="selectedItem.type">
+				<ion-option value="person">{{ 'CLIENTS_TYPE_PERSON' | translate }}</ion-option>
+				<ion-option value="company">{{ 'CLIENTS_TYPE_COMPANY' | translate }}</ion-option>
+			</ion-select>
+		</ion-item>
+		<ion-item>
+			<ion-label fixed><b>{{ 'CLIENTS_STATUS' | translate }}:</b></ion-label>
+			<ion-select [(ngModel)]="selectedItem.status">
+				<ion-option value="active">{{ 'CLIENTS_STATUS_ACTIVE' | translate }}</ion-option>
+				<ion-option value="blocked">{{ 'CLIENTS_STATUS_BLOCKED' | translate }}</ion-option>
+			</ion-select>
+		</ion-item>
+	</ion-list>
+	<!-- tab1 -->
+	<ion-list *ngIf="data.tabs==1" [class]="platform.width()<1000 ? 'list list-md listNarrow' : 'list list-md listWide'" no-lines>
+		<ion-item>
+			<ion-label fixed><b>{{ 'ACCOUNT_ADDRESS' | translate }}:</b></ion-label>
+			<ion-input placeholder="{{ 'ACCOUNT_ADDRESS' | translate }}" [(ngModel)]="selectedItem.address" type="text" clearInput></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label fixed><b>{{ 'ACCOUNT_PHONE' | translate }}:</b></ion-label>
+			<ion-input placeholder="{{ 'ACCOUNT_PHONE' | translate }}" [(ngModel)]="selectedItem.phone" type="text" clearInput></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label fixed><b>{{ 'ACCOUNT_EMAIL' | translate }}:</b></ion-label>
+			<ion-input placeholder="{{ 'ACCOUNT_EMAIL' | translate }}" [(ngModel)]="selectedItem.email" type="text" clearInput></ion-input>
+		</ion-item>
+	</ion-list>
+	<!-- tab2 -->
+	<ion-list *ngIf="data.tabs==2" [class]="platform.width()<1000 ? 'list list-md listNarrow' : 'list list-md listWide'" no-lines>
+		<ion-item>
+			<ion-label stacked><b>{{ 'CLIENTS_NOTE' | translate }}:</b></ion-label>
+			<ion-textarea placeholder="{{ 'CLIENTS_NOTE' | translate }}" [(ngModel)]="selectedItem.note" type="text" clearInput></ion-textarea>
+		</ion-item>
+	</ion-list>
+	<!-- end -->
+	<br>
+	<ion-toolbar [class]="platform.width()<1000 ? 'toolbar toolbar-md listNarrow' : 'toolbar toolbar-md listWide'" no-lines>
+		<div text-center>
+			<button ion-button color="secondary" style="width:200px; max-width:40%;" (click)="saveChanges()">{{ 'SAVE' | translate }}</button>
+		</div>
+	</ion-toolbar>
+	<br>
+</ion-content>

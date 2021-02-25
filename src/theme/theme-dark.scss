@@ -1,0 +1,98 @@
+@import "./ionic.globals";
+
+
+// Dark Theme
+// ----------------------------------
+
+.theme-dark
+{
+	.listNarrow
+	{
+		border-width: 1px 0px;
+		margin: auto;
+	}
+	
+	.listWide
+	{
+		border-width: 1px;
+		margin: auto;
+		width: 600px;
+	}
+	
+	
+	$text-color:                 #fff !default;
+	$link-color:                 #488aff !default;
+	$background-color:           #191919 !default;
+	$subdued-text-color:         #666 !default;
+
+	$font-family-base:           -apple-system, "Helvetica Neue", "Roboto", sans-serif !default;
+	$font-size-base:             1.4rem !default; // 1.4rem == 14px
+
+	$content-padding:            16px !default;
+	$content-margin:             16px !default;
+
+	$toolbar-background:         #151515 !default;
+	$toolbar-border-color:       #222 !default;
+	$toolbar-text-color:         $text-color !default;
+	$toolbar-active-color:       $link-color !default;
+	$toolbar-inactive-color:     #8c8c8c !default;
+
+	$tabs-background:            #151515 !default;
+	$tabs-border-color:          #222 !default;
+	$tabs-tab-color-inactive:    #8c8c8c !default;
+	$tabs-tab-color-active:      $link-color !default;
+
+	$list-text-color:            $text-color !default;
+	$list-background-color:      #242424 !default;
+	$list-border-color:          #000 !default;
+
+
+	.toolbar-background
+	{
+		background: $background-color;
+	}
+	
+	.toolbar-title, .bar-button
+	{
+		color: $text-color;
+	}
+	
+	ion-content
+	{
+		color: $text-color;
+		background: $background-color;
+	}
+	
+	.scroll-content
+	{
+		overflow-y: auto;
+	}
+	
+	ion-list
+	{
+		border-color: $list-border-color;
+		border-style: solid;
+		background: $list-background-color;
+	}
+	
+	ion-item, .item-block
+	{
+		color: $list-text-color;
+		background: $list-background-color;
+	}
+	
+	.searchbar-md .searchbar-input
+	{
+		color: $list-text-color;
+		background: $list-background-color;
+		border-width: 1px;
+		border-color: $list-border-color;
+		border-style: solid;
+		box-shadow: none;
+	}
+	
+	.label, .label-md
+	{
+		color: $text-color;
+	}
+}

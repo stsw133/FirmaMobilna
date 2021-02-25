@@ -1,0 +1,124 @@
+<ion-header>
+	<ion-navbar hideBackButton>
+		<ion-buttons margin-left left style="width:80px">
+			<button ion-button icon-only navPop>
+				<ion-icon name="close"></ion-icon>
+			</button>
+		</ion-buttons>
+		<ion-title text-center>{{ 'TICKETS_NEW' | translate }}</ion-title>
+		<ion-buttons margin-right right style="width:80px">
+			
+		</ion-buttons>
+	</ion-navbar>
+</ion-header>
+
+<ion-content>
+	<ion-toolbar [class]="platform.width()<1000 ? 'toolbar toolbar-md listNarrow' : 'toolbar toolbar-md listWide'" no-lines>
+		<button ion-button [color]="data.tabs==0 ? 'primary' : 'lgray'" (click)="selectTabs(0)">{{ 'TICKETS_GENERAL' | translate }}</button>
+		<button ion-button [color]="data.tabs==1 ? 'primary' : 'lgray'" (click)="selectTabs(1)">{{ 'TICKETS_NOTES' | translate }}</button>
+		<button ion-button [color]="data.tabs==2 ? 'primary' : 'lgray'" (click)="selectTabs(2)">{{ 'EMPLOYEES' | translate }}</button>
+	</ion-toolbar>
+	<br>
+	<!-- tab0 -->
+	<ion-list *ngIf="data.tabs==0" [class]="platform.width()<1000 ? 'list list-md listNarrow' : 'list list-md listWide'" no-lines>
+		<ion-item>
+			<ion-label fixed><b>{{ 'TICKETS_CLIENTID' | translate }}:</b></ion-label>
+			<ion-input placeholder="{{ 'TICKETS_CLIENTID' | translate }}" [(ngModel)]="data.client" type="number" clearInput></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label fixed><b>{{ 'ACCOUNT_FORENAME' | translate }}:</b></ion-label>
+			<ion-label>{{ data.forename }}</ion-label>
+		</ion-item>
+		<ion-item>
+			<ion-label fixed><b>{{ 'ACCOUNT_LASTNAME' | translate }}:</b></ion-label>
+			<ion-label>{{ data.lastname }}</ion-label>
+		</ion-item>
+		<br>
+		<ion-item>
+			<ion-label fixed><b>{{ 'ACCOUNT_ADDRESS' | translate }}:</b></ion-label>
+			<ion-label>{{ data.address }}</ion-label>
+		</ion-item>
+		<ion-item>
+			<ion-label fixed><b>{{ 'ACCOUNT_PHONE' | translate }}:</b></ion-label>
+			<ion-label>{{ data.phone }}</ion-label>
+		</ion-item>
+		<ion-item>
+			<ion-label fixed><b>{{ 'ACCOUNT_EMAIL' | translate }}:</b></ion-label>
+			<ion-label>{{ data.email }}</ion-label>
+		</ion-item>
+		<br>
+		<ion-item>
+			<ion-label fixed><b>{{ 'TICKETS_STATUS' | translate }}:</b></ion-label>
+			<ion-select [(ngModel)]="data.status">
+				<ion-option value="order">{{ 'TICKETS_STATUS_ORDER' | translate }}</ion-option>
+				<ion-option value="implementation">{{ 'TICKETS_STATUS_IMPLEMENTATION' | translate }}</ion-option>
+				<ion-option value="waiting">{{ 'TICKETS_STATUS_WAITING' | translate }}</ion-option>
+				<ion-option value="ended">{{ 'TICKETS_STATUS_ENDED' | translate }}</ion-option>
+				<ion-option value="verified">{{ 'TICKETS_STATUS_VERIFIED' | translate }}</ion-option>
+				<ion-option value="toverify">{{ 'TICKETS_STATUS_TOVERIFY' | translate }}</ion-option>
+			</ion-select>
+		</ion-item>
+		<ion-item>
+			<ion-label fixed><b>{{ 'TICKETS_PRIORITY' | translate }}:</b></ion-label>
+			<ion-select [(ngModel)]="data.priority">
+				<ion-option value="0">{{ 'TICKETS_PRIORITY_0' | translate }}</ion-option>
+				<ion-option value="1">{{ 'TICKETS_PRIORITY_1' | translate }}</ion-option>
+				<ion-option value="2">{{ 'TICKETS_PRIORITY_2' | translate }}</ion-option>
+				<ion-option value="3">{{ 'TICKETS_PRIORITY_3' | translate }}</ion-option>
+				<ion-option value="4">{{ 'TICKETS_PRIORITY_4' | translate }}</ion-option>
+			</ion-select>
+		</ion-item>
+		<ion-item>
+			<ion-label fixed><b>{{ 'TICKETS_CATEGORY' | translate }}:</b></ion-label>
+			<ion-input placeholder="{{ 'TICKETS_CATEGORY' | translate }}" [(ngModel)]="data.category" type="text" clearInput></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label fixed><b>{{ 'TICKETS_PAYMENT' | translate }}:</b></ion-label>
+			<ion-input placeholder="{{ 'TICKETS_PAYMENT' | translate }}" [(ngModel)]="data.payment" type="text" clearInput></ion-input>
+		</ion-item>
+		<br>
+		<ion-item>
+			<ion-label fixed><b>{{ 'TICKETS_STARTINGDATE' | translate }}:</b></ion-label>
+			<ion-datetime displayFormat="YYYY-MM-DD, HH:mm" pickerFormat="YYYY-MM-DDTHH:mm:ssTZD" [(ngModel)]="data.starting"></ion-datetime>
+		</ion-item>
+		<ion-item>
+			<ion-label fixed><b>{{ 'TICKETS_ENDINGDATE' | translate }}:</b></ion-label>
+			<ion-datetime displayFormat="YYYY-MM-DD, HH:mm" pickerFormat="YYYY-MM-DDTHH:mm:ssTZD" [(ngModel)]="data.ending"></ion-datetime>
+		</ion-item>
+		<br>
+		<ion-item>
+			<ion-label stacked><b>{{ 'TICKETS_DESCRIPTION1' | translate }}:</b></ion-label>
+			<ion-textarea placeholder="{{ 'TICKETS_DESCRIPTION1' | translate }}" [(ngModel)]="data.description1" type="text" clearInput></ion-textarea>
+		</ion-item>
+		<ion-item>
+			<ion-label stacked><b>{{ 'TICKETS_DESCRIPTION2' | translate }}:</b></ion-label>
+			<ion-textarea placeholder="{{ 'TICKETS_DESCRIPTION2' | translate }}" [(ngModel)]="data.description2" type="text" clearInput></ion-textarea>
+		</ion-item>
+		<ion-item>
+			<ion-label stacked><b>{{ 'TICKETS_DESCRIPTION3' | translate }}:</b></ion-label>
+			<ion-textarea placeholder="{{ 'TICKETS_DESCRIPTION3' | translate }}" [(ngModel)]="data.description3" type="text" clearInput></ion-textarea>
+		</ion-item>
+	</ion-list>
+	<!-- tab1 -->
+	<ion-list *ngIf="data.tabs==1" [class]="platform.width()<1000 ? 'list list-md listNarrow' : 'list list-md listWide'" no-lines>
+		<ion-item>
+			<ion-label stacked><b>{{ 'NOTE' | translate }}:</b></ion-label>
+			<ion-textarea placeholder="{{ 'NOTE' | translate }}" [(ngModel)]="data.note" type="text" clearInput></ion-textarea>
+		</ion-item>
+	</ion-list>
+	<!-- tab2 -->
+	<ion-list *ngIf="data.tabs==2" [class]="platform.width()<1000 ? 'list list-md listNarrow' : 'list list-md listWide'" no-lines>
+		<ion-item>
+			<ion-label stacked><b>{{ 'EMPLOYEES' | translate }}:</b></ion-label>
+			<ion-textarea placeholder="{{ 'EMPLOYEES' | translate }}" [(ngModel)]="data.employees" type="text" clearInput></ion-textarea>
+		</ion-item>
+	</ion-list>
+	<!-- end -->
+	<br>
+	<ion-toolbar [class]="platform.width()<1000 ? 'toolbar toolbar-md listNarrow' : 'toolbar toolbar-md listWide'" no-lines>
+		<div text-center>
+			<button ion-button color="secondary" style="width:200px; max-width:40%;" (click)="saveChanges()">{{ 'SAVE' | translate }}</button>
+		</div>
+	</ion-toolbar>
+	<br>
+</ion-content>

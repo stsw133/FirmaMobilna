@@ -1,0 +1,62 @@
+<ion-header>
+	<ion-navbar hideBackButton>
+		<ion-buttons margin-left left style="width:80px">
+			<button ion-button icon-only navPop>
+				<ion-icon name="arrow-back"></ion-icon>
+			</button>
+		</ion-buttons>
+		<ion-title text-center>{{ 'REGISTER' | translate }}</ion-title>
+		<ion-buttons margin-right right style="width:80px">
+			<button ion-button icon-only [disabled]="!warnings.length" (click)="showWarnings()">
+				<ion-icon name="warning"></ion-icon>
+				<ion-badge color="danger">{{ warnings.length }}</ion-badge>
+			</button>
+		</ion-buttons>
+	</ion-navbar>
+</ion-header>
+
+<ion-content>
+	<ion-list [class]="platform.width()<1000 ? 'list list-md listNarrow' : 'list list-md listWide'" no-lines>
+		<ion-item>
+			<ion-label fixed><b>{{ 'ACCOUNT_USERNAME' | translate }}:</b></ion-label>
+			<ion-input placeholder="{{ 'ACCOUNT_USERNAME' | translate }}" [(ngModel)]="data.username" type="text"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label fixed><b>{{ 'ACCOUNT_EMAIL' | translate }}:</b></ion-label>
+			<ion-input placeholder="{{ 'ACCOUNT_EMAIL' | translate }}" [(ngModel)]="data.email" type="email"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label fixed><b>{{ 'ACCOUNT_PASSWORD' | translate }}:</b></ion-label>
+			<ion-input placeholder="{{ 'ACCOUNT_PASSWORD' | translate }}" [(ngModel)]="data.password" type="password"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label fixed><b>{{ 'REPEAT' | translate }}:</b></ion-label>
+			<ion-input placeholder="{{ 'REPEAT' | translate }}" [(ngModel)]="data.repass" type="password"></ion-input>
+		</ion-item>
+	</ion-list>
+	<br>
+	<ion-list [class]="platform.width()<1000 ? 'list list-md listNarrow' : 'list list-md listWide'" no-lines>
+		<ion-item>
+			<ion-label fixed><b>{{ 'ACCOUNT_FORENAME' | translate }}:</b></ion-label>
+			<ion-input placeholder="{{ 'ACCOUNT_FORENAME' | translate }}" [(ngModel)]="data.forename" type="text"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label fixed><b>{{ 'ACCOUNT_LASTNAME' | translate }}:</b></ion-label>
+			<ion-input placeholder="{{ 'ACCOUNT_LASTNAME' | translate }}" [(ngModel)]="data.lastname" type="text"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label fixed><b>{{ 'LANGUAGE' | translate }}:</b></ion-label>
+			<ion-select [(ngModel)]="data.language">
+				<ion-option value="en">English</ion-option>
+				<ion-option value="pl">Polski</ion-option>
+			</ion-select>
+		</ion-item>
+	</ion-list>
+	<br>
+	<ion-toolbar [class]="platform.width()<1000 ? 'toolbar toolbar-md listNarrow' : 'toolbar toolbar-md listWide'" no-lines>
+		<div text-center>
+			<button ion-button color="primary" style="width:200px; max-width:40%;" (click)="doRegister()">{{ 'REGISTER_CREATEACCOUNT' | translate }}</button>
+		</div>
+	</ion-toolbar>
+	<br>
+</ion-content>

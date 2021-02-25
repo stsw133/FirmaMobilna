@@ -1,0 +1,73 @@
+<ion-header>
+	<ion-navbar hideBackButton>
+		<ion-buttons margin-left left style="width:80px">
+			<button ion-button icon-only (click)="openHomePage()">
+				<ion-icon name="home"></ion-icon>
+			</button>
+			<button ion-button icon-only (click)="openLastPage()">
+				<ion-icon name="arrow-back"></ion-icon>
+			</button>
+		</ion-buttons>
+		<ion-title text-center>{{ 'PERMISSIONS' | translate }}</ion-title>
+		<ion-buttons margin-right right style="width:80px" menuToggle>
+			<button ion-button icon-only>
+				<ion-badge [hidden]="quickMenu.messages.length+quickMenu.notifications.length+quickMenu.warnings.length<1" [color]="quickMenu.warnings.length>0 ? 'danger' : 'primary'">{{ quickMenu.messages.length+quickMenu.notifications.length }}</ion-badge>&nbsp;
+				<ion-icon name="menu"></ion-icon>
+			</button>
+		</ion-buttons>
+	</ion-navbar>
+</ion-header>
+
+<ion-content>
+	<ion-toolbar [class]="platform.width()<1000 ? 'toolbar toolbar-md listNarrow' : 'toolbar toolbar-md listWide'" no-lines>
+		<ion-select [(ngModel)]="data.group" (ionChange)="refreshPage()">
+			<ion-option *ngFor="let group of groups" [value]="group.id">{{ group.name.charAt(0).toUpperCase()+group.name.slice(1) }}</ion-option>
+		</ion-select>
+		<ion-buttons right>
+			<button ion-button icon-only (click)="refreshPage()">
+				<ion-icon name="refresh"></ion-icon>
+			</button>
+		</ion-buttons>
+	</ion-toolbar>
+	<br>
+	<ion-list [class]="platform.width()<1000 ? 'list list-md listNarrow' : 'list list-md listWide'" no-lines>
+		<ion-grid>
+			<ion-row>
+				<ion-col col-7><!-- <b>{{ 'PERMISSIONS_MODULE' | translate }}:</b> --></ion-col>
+				<ion-col col-1><ion-icon color="tertiary" name="list"></ion-icon></ion-col>
+				<ion-col col-1><ion-icon color="primary" name="document"></ion-icon></ion-col>
+				<ion-col col-1><ion-icon color="secondary" name="create"></ion-icon></ion-col>
+				<ion-col col-1><ion-icon color="danger" name="trash"></ion-icon></ion-col>
+				<ion-col col-1><ion-icon color="important" name="people"></ion-icon></ion-col>
+			</ion-row>
+			<ion-row><ion-col></ion-col></ion-row>
+			<ion-row *ngFor="let module of modules">
+				<ion-col col-7>
+					{{ module.name }}
+				</ion-col>
+				<ion-col col-1>
+					<ion-checkbox item-end color="dark" [(ngModel)]="module.actions.list" (ionChange)="setPerm(module,'list',module.actions.list)"></ion-checkbox>
+				</ion-col>
+				<ion-col col-1>
+					<ion-checkbox item-end color="dark" [(ngModel)]="module.actions.get" (ionChange)="setPerm(module,'get',module.actions.get)"></ion-checkbox>
+				</ion-col>
+				<ion-col col-1>
+					<ion-checkbox item-end color="dark" [(ngModel)]="module.actions.set" (ionChange)="setPerm(module,'set',module.actions.set)"></ion-checkbox>
+				</ion-col>
+				<ion-col col-1>
+					<ion-checkbox item-end color="dark" [(ngModel)]="module.actions.del" (ionChange)="setPerm(module,'del',module.actions.del)"></ion-checkbox>
+				</ion-col>
+				<ion-col col-1>
+					<ion-checkbox item-end color="dark" [(ngModel)]="module.actions.people" (ionChange)="setPerm(module,'people',module.actions.people)"></ion-checkbox>
+				</ion-col>
+			</ion-row>
+		</ion-grid>
+	</ion-list>
+	<!-- <br> -->
+	<!-- <ion-toolbar [class]="platform.width()<1000 ? 'toolbar toolbar-md listNarrow' : 'toolbar toolbar-md listWide'" no-lines> -->
+		<!-- <div text-center> -->
+			<!-- <button ion-button color="secondary" style="width:200px; max-width:40%;" (click)="saveChanges()">{{ 'SAVE' | translate }}</button> -->
+		<!-- </div> -->
+	<!-- </ion-toolbar> -->
+	<!-- <br> -->
+</ion-content>

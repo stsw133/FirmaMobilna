@@ -1,0 +1,93 @@
+<ion-header>
+	<ion-navbar hideBackButton>
+		<ion-buttons margin-left left style="width:80px">
+			<button ion-button icon-only navPop>
+				<ion-icon name="close"></ion-icon>
+			</button>
+		</ion-buttons>
+		<ion-title text-center>{{ 'EDIT' | translate }}:<br><span style="font-size: 14px">({{ selectedItem.id }}) {{ selectedItem.forename }} {{ selectedItem.lastname }}</span></ion-title>
+		<ion-buttons margin-right right style="width:80px">
+			
+		</ion-buttons>
+	</ion-navbar>
+</ion-header>
+
+<ion-content>
+	<ion-list [class]="platform.width()<1000 ? 'list list-md listNarrow' : 'list list-md listWide'" no-lines>
+		<ion-item>
+			<ion-label fixed><b>{{ 'ACCOUNT_FORENAME' | translate }}:</b></ion-label>
+			<ion-label *ngIf="account.group!=1 && selectedItem.id!=account.id">{{ selectedItem.forename }}</ion-label>
+			<ion-input *ngIf="account.group==1 || selectedItem.id==account.id" placeholder="{{ 'ACCOUNT_FORENAME' | translate }}" [(ngModel)]="selectedItem.forename" type="text" clearInput></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label fixed><b>{{ 'ACCOUNT_LASTNAME' | translate }}:</b></ion-label>
+			<ion-label *ngIf="account.group!=1 && selectedItem.id!=account.id">{{ selectedItem.lastname }}</ion-label>
+			<ion-input *ngIf="account.group==1 || selectedItem.id==account.id" placeholder="{{ 'ACCOUNT_LASTNAME' | translate }}" [(ngModel)]="selectedItem.lastname" type="text" clearInput></ion-input>
+		</ion-item>
+		<br>
+		<ion-item>
+			<ion-label fixed><b>{{ 'ACCOUNT_EMAIL' | translate }}:</b></ion-label>
+			<ion-input placeholder="{{ 'ACCOUNT_EMAIL' | translate }}" [(ngModel)]="selectedItem.email" type="text" clearInput></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label fixed><b>{{ 'ACCOUNT_PHONE' | translate }}:</b></ion-label>
+			<ion-input placeholder="{{ 'ACCOUNT_PHONE' | translate }}" [(ngModel)]="selectedItem.phone" type="text" clearInput></ion-input>
+		</ion-item>
+		<br *ngIf="selectedItem.id===account.id">
+		<ion-item *ngIf="selectedItem.id===account.id">
+			<ion-label fixed *ngIf="!data.showUsername" color="gray"><b>{{ 'ACCOUNT_USERNAME' | translate }}:</b></ion-label>
+			<ion-label *ngIf="!data.showUsername">
+				<button small ion-button icon-only color="lGray" (click)="showUsername()">
+					<ion-icon *ngIf="!data.showUsername" name="eye"></ion-icon>
+					<!-- <ion-icon *ngIf="data.showUsername" name="eye-off"></ion-icon> -->
+				</button>
+			</ion-label>
+			<ion-label fixed *ngIf="data.showUsername"><b>{{ 'ACCOUNT_USERNAME' | translate }}:</b></ion-label>
+			<ion-input *ngIf="data.showUsername" placeholder="{{ 'ACCOUNT_USERNAME' | translate }}" [(ngModel)]="selectedItem.username" type="text" clearInput></ion-input>
+		</ion-item>
+		<ion-item *ngIf="selectedItem.id===account.id">
+			<ion-label fixed *ngIf="!data.showPassword" color="gray"><b>{{ 'ACCOUNT_PASSWORD' | translate }}:</b></ion-label>
+			<ion-label *ngIf="!data.showPassword">
+				<button small ion-button icon-only color="lGray" (click)="showPassword()">
+					<ion-icon *ngIf="!data.showPassword" name="eye"></ion-icon>
+					<!-- <ion-icon *ngIf="data.showPassword" name="eye-off"></ion-icon> -->
+				</button>
+			</ion-label>
+			<ion-label fixed *ngIf="data.showPassword"><b>{{ 'ACCOUNT_PASSWORD' | translate }}:</b></ion-label>
+			<ion-input *ngIf="data.showPassword" placeholder="{{ 'ACCOUNT_PASSWORD' | translate }}" [(ngModel)]="selectedItem.password" type="password" clearInput></ion-input>
+		</ion-item>
+		<ion-item *ngIf="selectedItem.id===account.id && data.showPassword">
+			<ion-label fixed><b>{{ 'REPEAT' | translate }}:</b></ion-label>
+			<ion-input placeholder="{{ 'ACCOUNT_PASSWORD' | translate }}" [(ngModel)]="selectedItem.repass" type="password" clearInput></ion-input>
+		</ion-item>
+		<br>
+		<ion-item>
+			<ion-label fixed><b>{{ 'ACCOUNT_GROUP' | translate }}:</b></ion-label>
+			<ion-select [(ngModel)]="selectedItem.group">
+				<ion-option value="standard">standard</ion-option>
+				<ion-option value="moderator">moderator</ion-option>
+				<ion-option value="admin">admin</ion-option>
+			</ion-select>
+		</ion-item>
+		<ion-item>
+			<ion-label fixed><b>{{ 'ACTIVE' | translate }}:</b></ion-label>
+			<ion-select [(ngModel)]="selectedItem.active">
+				<ion-option value="true">{{ 'CLIENTS_STATUS_ACTIVE' | translate }}</ion-option>
+				<ion-option value="false">{{ 'CLIENTS_STATUS_BLOCKED' | translate }}</ion-option>
+			</ion-select>
+		</ion-item>
+		<ion-item>
+			<ion-label fixed><b>{{ 'LANGUAGE' | translate }}:</b></ion-label>
+			<ion-select [(ngModel)]="selectedItem.language">
+				<ion-option value="en">{{ 'LANGUAGE_EN' | translate }}</ion-option>
+				<ion-option value="pl">{{ 'LANGUAGE_PL' | translate }}</ion-option>
+			</ion-select>
+		</ion-item>
+		<br>
+		<div text-center>
+			<button ion-button color="secondary" style="width:200px; max-width:40%;" (click)="saveChanges()">{{ 'SAVE' | translate }}</button>
+			<button ion-button color="light" style="width:200px; max-width:40%;" navPop>{{ 'CANCEL' | translate }}</button>
+		</div>
+		<br>
+	</ion-list>
+</ion-content>

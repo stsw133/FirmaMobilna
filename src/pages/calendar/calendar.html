@@ -1,0 +1,81 @@
+<ion-header>
+	<ion-navbar hideBackButton>
+		<ion-buttons margin-left left style="width:80px">
+			<button ion-button icon-only (click)="openHomePage()">
+				<ion-icon name="home"></ion-icon>
+			</button>
+			<button ion-button icon-only (click)="openLastPage()">
+				<ion-icon name="arrow-back"></ion-icon>
+			</button>
+		</ion-buttons>
+		<ion-title text-center>{{ 'CALENDAR' | translate }}</ion-title>
+		<ion-buttons margin-right right style="width:80px" menuToggle>
+			<button ion-button icon-only>
+				<ion-badge [hidden]="quickMenu.messages.length+quickMenu.notifications.length+quickMenu.warnings.length<1" [color]="quickMenu.warnings.length>0 ? 'danger' : 'primary'">{{ quickMenu.messages.length+quickMenu.notifications.length }}</ion-badge>&nbsp;
+				<ion-icon name="menu"></ion-icon>
+			</button>
+		</ion-buttons>
+	</ion-navbar>
+</ion-header>
+
+<ion-content>
+	<ion-toolbar [class]="platform.width()<1000 ? 'toolbar toolbar-md listNarrow' : 'toolbar toolbar-md listWide'" no-lines>
+		<ion-buttons left>
+			<button ion-button icon-only (click)="selectViewMode()">
+				<ion-icon name="list"></ion-icon>
+			</button>
+		</ion-buttons>
+		<button margin-left *ngIf="account.forename!==undefined && account.lastname!==undefined" style="font-size: 18px"><b>{{ account.forename }} {{ account.lastname }}</b></button>
+		<ion-buttons right>
+			<button ion-button icon-only (click)="addEvent()">
+				<ion-icon name="add"></ion-icon>
+			</button>
+			<button ion-button icon-only (click)="refreshPage()">
+				<ion-icon name="refresh"></ion-icon>
+			</button>
+		</ion-buttons>
+	</ion-toolbar>
+	<br>
+	<ion-list [class]="platform.width()<1000 ? 'list list-md listNarrow' : 'list list-md listWide'" no-lines>
+		<ion-item-sliding *ngFor="let item of items">
+			<ion-item>
+				<div padding-left item-left>
+					<b *ngIf="data.modeType=='daily'"><span *ngIf="items.indexOf(item)<10">0</span>{{ items.indexOf(item) }}:00</b>
+					<b *ngIf="data.modeType=='weekly'">{{ items.indexOf(item)+1 }} day of week</b>
+				</div>
+				<div padding item-left>
+					<ion-item-sliding *ngFor="let event of ' '.repeat(10).split(''), let x = index">
+						<ion-item [color]="item.color" (click)="collapseItem(item,event)">
+							event {{ x }}
+							<br *ngIf="data.collapseID==items.indexOf(item)">
+							<br *ngIf="data.collapseID==items.indexOf(item)">
+							<button *ngIf="data.collapseID==items.indexOf(item)" ion-button color="primary" (click)="previewEvent(item)">
+								<ion-icon name="document"> {{ 'PREVIEW' | translate }}</ion-icon>
+							</button>
+							<br *ngIf="data.collapseID==items.indexOf(item)" [hidden]="(account.perms!=='admin' && item.id!==account.id) || (item.perms==='admin' && item.id!==account.id)">
+							<button *ngIf="data.collapseID==items.indexOf(item)" [hidden]="(account.perms!=='admin' && item.id!==account.id) || (item.perms==='admin' && item.id!==account.id)" ion-button color="secondary" (click)="editEvent(item)">
+								<ion-icon name="create"> {{ 'EDIT' | translate }}</ion-icon>
+							</button>
+							<br *ngIf="data.collapseID==items.indexOf(item) && item.id!==account.id" [hidden]="account.perms!=='admin' || item.perms==='admin'">
+							<button *ngIf="data.collapseID==items.indexOf(item) && item.id!==account.id" [hidden]="account.perms!=='admin' || item.perms==='admin'" ion-button color="danger" (click)="deleteEvent(item)">
+								<ion-icon name="trash"> {{ 'DELETE' | translate }}</ion-icon>
+							</button>
+						</ion-item>
+					</ion-item-sliding>
+				</div>
+			</ion-item>
+		</ion-item-sliding>
+		<ion-item *ngIf="items===undefined || items.length==0">
+			{{ 'WARNING_EMPTYLIST' | translate }}
+		</ion-item>
+	</ion-list>
+	<br>
+	<ion-item hidden>
+		<ion-label>{{ 'MODE' | translate }}</ion-label>
+		<ion-select (ionChange)="showCalendar()" [(ngModel)]="data.modeType" #viewMode>
+			<ion-option value="daily">{{ 'CALENDAR_MODE_DAILY' | translate }}</ion-option>
+			<ion-option value="weekly">{{ 'CALENDAR_MODE_WEEKLY' | translate }}</ion-option>
+			<ion-option value="monthly">{{ 'CALENDAR_MODE_MONTHLY' | translate }}</ion-option>
+		</ion-select>
+	</ion-item>
+</ion-content>

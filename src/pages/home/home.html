@@ -1,0 +1,59 @@
+<ion-header>
+	<ion-navbar hideBackButton>
+		<ion-buttons margin-left left style="width:80px">
+			
+		</ion-buttons>
+		<ion-title text-center>{{ 'HOME' | translate }}</ion-title>
+		<ion-buttons margin-right right style="width:80px" menuToggle>
+			<button ion-button icon-only>
+				<ion-badge [hidden]="quickMenu.messages.length+quickMenu.notifications.length+quickMenu.warnings.length<1" [color]="quickMenu.warnings.length>0 ? 'danger' : 'primary'">{{ quickMenu.messages.length+quickMenu.notifications.length }}</ion-badge>&nbsp;
+				<!-- <ion-badge color="primary">{{ quickMenu.messages.length }}</ion-badge>&nbsp; -->
+				<!-- <ion-badge color="primary">{{ quickMenu.notifications.length }}</ion-badge>&nbsp; -->
+				<!-- <ion-badge color="danger">{{ quickMenu.warnings.length }}</ion-badge>&nbsp; -->
+				<ion-icon name="menu"></ion-icon>
+			</button>
+		</ion-buttons>
+	</ion-navbar>
+</ion-header>
+
+<ion-content>
+	<ion-list [class]="platform.width()<1000 ? 'list list-md listNarrow' : 'list list-md listWide'" no-lines>
+		<ion-item>
+			<div item-left>
+				Logged as:
+			</div>
+			<div item-left>
+				<button ion-button icon-only color="primary" (click)="openProfilePage()">
+					<ion-icon name="person"></ion-icon>
+				</button>
+			</div>
+			<div item-left>
+				<b>{{ account.forename }} {{ account.lastname }}</b>
+			</div>
+		</ion-item>
+	</ion-list>
+	<br>
+	<ion-list [class]="platform.width()<1000 ? 'list list-md listNarrow' : 'list list-md listWide'" no-lines>
+		<ion-searchbar placeholder="{{ 'SEARCH' | translate }}" (ionInput)="searchItems($event)"></ion-searchbar>
+		<ion-item-sliding *ngFor="let module of modules">
+			<button ion-item [disabled]="module.disabled" (click)="openPage(module)">
+				<ion-icon name="{{ module.icon }}" item-left></ion-icon>
+				<div item-left padding-left>
+					<b>{{ module.name.toUpperCase() | translate }}</b>
+				</div>
+				<div ion-button *ngIf="module.counter && module.counter>0" item-left>
+					{{ module.counter }}
+				</div>
+			</button>
+		</ion-item-sliding>
+	</ion-list>
+	<br>
+	<ion-list [class]="platform.width()<1000 ? 'list list-md listNarrow' : 'list list-md listWide'" no-lines>
+		<button ion-item (click)="logout()">
+			<ion-icon name="log-out" item-left></ion-icon>
+			<div item-left padding-left>
+				<b>{{ 'LOGOUT' | translate }}</b>
+			</div>
+		</button>
+	</ion-list>
+</ion-content>

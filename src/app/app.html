@@ -1,0 +1,44 @@
+<!-- <ion-split-pane when="lg"> -->
+	<ion-menu side="right" [content]="content">
+		<ion-content>
+			<!-- <ion-list> -->
+				<!-- <button *ngIf="quickMenu.returnLast" ion-item navPop> -->
+					<!-- <ion-icon name="arrow-back"></ion-icon> -->
+					<!-- <span margin-left>{{ 'RETURN_LAST' | translate }}</span> -->
+				<!-- </button> -->
+				<!-- <button *ngIf="quickMenu.returnHome" ion-item (click)="navCtrl.popToRoot()"> -->
+					<!-- <ion-icon name="home"></ion-icon> -->
+					<!-- <span margin-left>{{ 'RETURN_HOME' | translate }}</span> -->
+				<!-- </button> -->
+			<!-- </ion-list> -->
+			<!-- <br *ngIf="quickMenu.returnLast || quickMenu.returnHome"> -->
+			<ion-list>
+				<button *ngIf="quickMenu.messages" ion-item (click)="showMessages()">
+					<ion-icon name="chatbubbles"></ion-icon>
+					<span margin-left>{{ 'MESSAGES' | translate }}</span>
+					<ion-badge color="primary" [hidden]="quickMenu.messages.length<1">{{ quickMenu.messages.length }}</ion-badge>
+				</button>
+				<button *ngIf="quickMenu.notifications" ion-item (click)="showNotifications()">
+					<ion-icon name="notifications"></ion-icon>
+					<span margin-left>{{ 'NOTIFICATIONS' | translate }}</span>
+					<ion-badge color="primary" [hidden]="quickMenu.notifications.length<1">{{ quickMenu.notifications.length }}</ion-badge>
+				</button>
+				<button *ngIf="quickMenu.warnings" ion-item (click)="showWarnings()">
+					<ion-icon name="warning"></ion-icon>
+					<span margin-left>{{ 'WARNINGS' | translate }}</span>
+					<ion-badge color="danger" [hidden]="quickMenu.warnings.length<1">{{ quickMenu.warnings.length }}</ion-badge>
+				</button>
+			</ion-list>
+			<br>
+			<ion-list>
+				<button ion-item menuClose>
+					<ion-icon name="close"></ion-icon>
+					<span margin-left>{{ 'CLOSE' | translate }}</span>
+				</button>
+			</ion-list>
+		</ion-content>
+	</ion-menu>
+<!-- </ion-split-pane> -->
+
+<!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false" [class]="selectedTheme"></ion-nav>

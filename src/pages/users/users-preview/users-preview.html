@@ -1,0 +1,88 @@
+<ion-header>
+	<ion-navbar hideBackButton>
+		<ion-buttons margin-left left style="width:80px">
+			<button ion-button icon-only navPop>
+				<ion-icon name="close"></ion-icon>
+			</button>
+		</ion-buttons>
+		<ion-title text-center>{{ 'PREVIEW' | translate }}:<br><span style="font-size: 14px">({{ selectedItem.id }}) {{ selectedItem.forename }} {{ selectedItem.lastname }}</span></ion-title>
+		<ion-buttons margin-right right style="width:80px">
+			
+		</ion-buttons>
+	</ion-navbar>
+</ion-header>
+
+<ion-content>
+	<ion-list [class]="platform.width()<1000 ? 'list list-md listNarrow' : 'list list-md listWide'" no-lines>
+		<ion-item>
+			<ion-label fixed><b>{{ 'ACCOUNT_FORENAME' | translate }}:</b></ion-label>
+			<ion-label>{{ selectedItem.forename }}</ion-label>
+		</ion-item>
+		<ion-item>
+			<ion-label fixed><b>{{ 'ACCOUNT_LASTNAME' | translate }}:</b></ion-label>
+			<ion-label>{{ selectedItem.lastname }}</ion-label>
+		</ion-item>
+		<br>
+		<ion-item>
+			<ion-label fixed><b>{{ 'ACCOUNT_EMAIL' | translate }}:</b></ion-label>
+			<ion-label>{{ selectedItem.email }}</ion-label>
+		</ion-item>
+		<ion-item>
+			<ion-label fixed><b>{{ 'ACCOUNT_PHONE' | translate }}:</b></ion-label>
+			<ion-label>{{ selectedItem.phone }}</ion-label>
+		</ion-item>
+		<ion-item text-center *ngIf="!data.extendedInfo && account.group==1 && (selectedItem.group!=1 || selectedItem.id===account.id)">
+			<ion-label>
+				<button ion-button icon-only color="primary" (click)="extendInfo()">
+					<ion-icon *ngIf="!data.extendedInfo" name="arrow-down"></ion-icon>
+					<ion-icon *ngIf="data.extendedInfo" name="arrow-up"></ion-icon>
+				</button>
+			</ion-label>
+		</ion-item>
+		<br *ngIf="data.extendedInfo && selectedItem.id===account.id">
+		<ion-item *ngIf="data.extendedInfo && selectedItem.id===account.id">
+			<ion-label fixed *ngIf="!data.showUsername"><b>{{ 'ACCOUNT_USERNAME' | translate }}:</b></ion-label>
+			<ion-label *ngIf="!data.showUsername">
+				<button small ion-button icon-only color="primary" (click)="showUsername()">
+					<ion-icon *ngIf="!data.showUsername" name="eye"></ion-icon>
+					<!-- <ion-icon *ngIf="data.showUsername" name="eye-off"></ion-icon> -->
+				</button>
+			</ion-label>
+			<ion-label fixed *ngIf="data.showUsername"><b>{{ 'ACCOUNT_USERNAME' | translate }}:</b></ion-label>
+			<ion-label *ngIf="data.showUsername">{{ selectedItem.username }}</ion-label>
+		</ion-item>
+		<ion-item *ngIf="data.extendedInfo && selectedItem.id===account.id">
+			<ion-label fixed *ngIf="!data.showPassword"><b>{{ 'ACCOUNT_PASSWORD' | translate }}:</b></ion-label>
+			<ion-label *ngIf="!data.showPassword">
+				<button small ion-button icon-only color="primary" (click)="showPassword()">
+					<ion-icon *ngIf="!data.showPassword" name="eye"></ion-icon>
+					<!-- <ion-icon *ngIf="data.showPassword" name="eye-off"></ion-icon> -->
+				</button>
+			</ion-label>
+			<ion-label fixed *ngIf="data.showPassword"><b>{{ 'ACCOUNT_PASSWORD' | translate }}:</b></ion-label>
+			<ion-label *ngIf="data.showPassword">{{ selectedItem.password }}</ion-label>
+		</ion-item>
+		<br *ngIf="data.extendedInfo">
+		<ion-item *ngIf="data.extendedInfo">
+			<ion-label fixed><b>{{ 'ACCOUNT_GROUP' | translate }}:</b></ion-label>
+			<ion-label>{{ selectedItem.group }}</ion-label>
+		</ion-item>
+		<ion-item *ngIf="data.extendedInfo">
+			<ion-label fixed><b>{{ 'ACTIVE' | translate }}:</b></ion-label>
+			<ion-label>{{ selectedItem.active }}</ion-label>
+		</ion-item>
+		<ion-item *ngIf="data.extendedInfo">
+			<ion-label fixed><b>{{ 'LANGUAGE' | translate }}:</b></ion-label>
+			<ion-label>{{ 'LANGUAGE_'+selectedItem.language.toUpperCase() | translate }}</ion-label>
+		</ion-item>
+		<br *ngIf="data.extendedInfo">
+		<ion-item *ngIf="data.extendedInfo">
+			<ion-label fixed><b>{{ 'CREATED' | translate }}:</b></ion-label>
+			<ion-label>{{ selectedItem.created }}</ion-label>
+		</ion-item>
+		<ion-item *ngIf="data.extendedInfo">
+			<ion-label fixed><b>{{ 'ACCOUNT_LOGGED' | translate }}:</b></ion-label>
+			<ion-label>{{ selectedItem.logged }}</ion-label>
+		</ion-item>
+	</ion-list>
+</ion-content>

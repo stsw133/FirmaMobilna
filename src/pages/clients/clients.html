@@ -1,0 +1,85 @@
+<ion-header>
+	<ion-navbar hideBackButton>
+		<ion-buttons margin-left left style="width:80px">
+			<button ion-button icon-only (click)="openHomePage()">
+				<ion-icon name="home"></ion-icon>
+			</button>
+			<button ion-button icon-only (click)="openLastPage()">
+				<ion-icon name="arrow-back"></ion-icon>
+			</button>
+		</ion-buttons>
+		<ion-title text-center>{{ 'CLIENTS' | translate }}</ion-title>
+		<ion-buttons margin-right right style="width:80px" menuToggle>
+			<button ion-button icon-only>
+				<ion-badge [hidden]="quickMenu.messages.length+quickMenu.notifications.length+quickMenu.warnings.length<1" [color]="quickMenu.warnings.length>0 ? 'danger' : 'primary'">{{ quickMenu.messages.length+quickMenu.notifications.length }}</ion-badge>&nbsp;
+				<ion-icon name="menu"></ion-icon>
+			</button>
+		</ion-buttons>
+	</ion-navbar>
+</ion-header>
+
+<ion-content>
+	<ion-toolbar [class]="platform.width()<1000 ? 'toolbar toolbar-md listNarrow' : 'toolbar toolbar-md listWide'" no-lines>
+		<ion-buttons left>
+			<button ion-button icon-only (click)="selectSearchbarFilter()">
+				<ion-icon name="funnel"></ion-icon>
+			</button>
+		</ion-buttons>
+		<ion-searchbar placeholder="{{ 'SEARCH' | translate }}" (ionInput)="searchItems($event)"></ion-searchbar>
+		<ion-buttons right>
+			<button ion-button icon-only (click)="refreshPage()">
+				<ion-icon name="refresh"></ion-icon>
+			</button>
+		</ion-buttons>
+	</ion-toolbar>
+	<br>
+	<ion-list [class]="platform.width()<1000 ? 'list list-md listNarrow' : 'list list-md listWide'" no-lines>
+		<button ion-item color="primary" (click)="newItem()">
+			<div margin-left item-left>
+				<ion-icon name="add" item-left></ion-icon>
+			</div>
+			<div margin-left item-left>
+				{{ 'CLIENTS_NEW' | translate }}
+			</div>
+		</button>
+	</ion-list>
+	<ion-list [class]="platform.width()<1000 ? 'list list-md listNarrow' : 'list list-md listWide'" no-lines>
+		<ion-item-sliding *ngFor="let item of items">
+			<ion-item [color]="item.color" (click)="collapseItem(item)">
+				<!-- <ion-icon name="contact" item-left></ion-icon> -->
+				<div padding item-left>
+					<!-- {{ items.indexOf(item)+1 }}. -->
+					{{ item.id }}.
+				</div>
+				<div item-left>
+					<b>{{ item.forename }} {{ item.lastname }}</b>
+					<br>
+					{{ item.address }}
+					<br *ngIf="data.collapseID==items.indexOf(item)">
+					<br *ngIf="data.collapseID==items.indexOf(item)">
+					<button *ngIf="data.collapseID==items.indexOf(item)" ion-button color="primary" (click)="previewItem(item)">
+						<ion-icon name="document"> {{ 'PREVIEW' | translate }}</ion-icon>
+					</button>
+					<br *ngIf="data.collapseID==items.indexOf(item)" [hidden]="account.group!=1 && account.id!=item.creator">
+					<button *ngIf="data.collapseID==items.indexOf(item)" [hidden]="account.group!=1 && account.id!=item.creator" ion-button color="secondary" (click)="editItem(item)">
+						<ion-icon name="create"> {{ 'EDIT' | translate }}</ion-icon>
+					</button>
+					<br *ngIf="data.collapseID==items.indexOf(item)" [hidden]="account.group!=1 && account.id!=item.creator">
+					<button *ngIf="data.collapseID==items.indexOf(item)" [hidden]="account.group!=1 && account.id!=item.creator" ion-button color="danger" (click)="deleteItem(item)">
+						<ion-icon name="trash"> {{ 'DELETE' | translate }}</ion-icon>
+					</button>
+				</div>
+			</ion-item>
+		</ion-item-sliding>
+		<ion-item *ngIf="items===undefined || items.length==0">
+			{{ 'WARNING_EMPTYLIST' | translate }}
+		</ion-item>
+	</ion-list>
+	<ion-item hidden>
+		<ion-label>{{ 'FILTERS' | translate }}</ion-label>
+		<ion-select [(ngModel)]="data.filterType" #searchbarFilter>
+			<ion-option value="fullname">{{ 'ACCOUNT_FULLNAME' | translate }}</ion-option>
+			<ion-option value="address">{{ 'ACCOUNT_ADDRESS' | translate }}</ion-option>
+		</ion-select>
+	</ion-item>
+</ion-content>

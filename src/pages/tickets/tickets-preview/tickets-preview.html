@@ -1,0 +1,109 @@
+<ion-header>
+	<ion-navbar hideBackButton>
+		<ion-buttons margin-left left style="width:80px">
+			<button ion-button icon-only navPop>
+				<ion-icon name="close"></ion-icon>
+			</button>
+		</ion-buttons>
+		<ion-title text-center>{{ 'PREVIEW' | translate }}:<br><span style="font-size:14px">{{ selectedItem.forename }} {{ selectedItem.lastname }}</span></ion-title>
+		<ion-buttons margin-right right style="width:80px">
+			
+		</ion-buttons>
+	</ion-navbar>
+</ion-header>
+
+<ion-content>
+	<ion-toolbar [class]="platform.width()<1000 ? 'toolbar toolbar-md listNarrow' : 'toolbar toolbar-md listWide'" no-lines>
+		<button ion-button [color]="data.tabs==0 ? 'primary' : 'lgray'" (click)="selectTabs(0)">{{ 'TICKETS_GENERAL' | translate }}</button>
+		<button ion-button [color]="data.tabs==1 ? 'primary' : 'lgray'" (click)="selectTabs(1)">{{ 'TICKETS_NOTES' | translate }}</button>
+		<button ion-button [color]="data.tabs==2 ? 'primary' : 'lgray'" (click)="selectTabs(2)">{{ 'EMPLOYEES' | translate }}</button>
+	</ion-toolbar>
+	<br>
+	<!-- tab0 -->
+	<ion-list *ngIf="data.tabs==0" [class]="platform.width()<1000 ? 'list list-md listNarrow' : 'list list-md listWide'" no-lines>
+		<ion-item>
+			<ion-label fixed><b>{{ 'TICKETS_CLIENTID' | translate }}:</b></ion-label>
+			<ion-label>{{ selectedItem.client }}</ion-label>
+		</ion-item>
+		<ion-item>
+			<ion-label fixed><b>{{ 'ACCOUNT_FORENAME' | translate }}:</b></ion-label>
+			<ion-label>{{ selectedItem.forename }}</ion-label>
+		</ion-item>
+		<ion-item>
+			<ion-label fixed><b>{{ 'ACCOUNT_LASTNAME' | translate }}:</b></ion-label>
+			<ion-label>{{ selectedItem.lastname }}</ion-label>
+		</ion-item>
+		<br>
+		<ion-item>
+			<ion-label fixed><b>{{ 'ACCOUNT_ADDRESS' | translate }}:</b></ion-label>
+			<ion-label>{{ selectedItem.address }}</ion-label>
+		</ion-item>
+		<ion-item>
+			<ion-label fixed><b>{{ 'ACCOUNT_PHONE' | translate }}:</b></ion-label>
+			<ion-label>{{ selectedItem.phone }}</ion-label>
+		</ion-item>
+		<ion-item>
+			<ion-label fixed><b>{{ 'ACCOUNT_EMAIL' | translate }}:</b></ion-label>
+			<ion-label>{{ selectedItem.email }}</ion-label>
+		</ion-item>
+		<br>
+		<ion-item>
+			<ion-label fixed><b>{{ 'TICKETS_STATUS' | translate }}:</b></ion-label>
+			<ion-label>{{ selectedItem.status }}</ion-label>
+		</ion-item>
+		<ion-item>
+			<ion-label fixed><b>{{ 'TICKETS_PRIORITY' | translate }}:</b></ion-label>
+			<ion-label>{{ selectedItem.priority }}</ion-label>
+		</ion-item>
+		<ion-item>
+			<ion-label fixed><b>{{ 'TICKETS_CATEGORY' | translate }}:</b></ion-label>
+			<ion-label>{{ selectedItem.category }}</ion-label>
+		</ion-item>
+		<ion-item>
+			<ion-label fixed><b>{{ 'TICKETS_PAYMENT' | translate }}:</b></ion-label>
+			<ion-label>{{ selectedItem.payment }}</ion-label>
+		</ion-item>
+		<br>
+		<ion-item>
+			<ion-label fixed><b>{{ 'TICKETS_STARTINGDATE' | translate }}:</b></ion-label>
+			<ion-label>{{ selectedItem.starting }}</ion-label>
+		</ion-item>
+		<ion-item>
+			<ion-label fixed><b>{{ 'TICKETS_ENDINGDATE' | translate }}:</b></ion-label>
+			<ion-label>{{ selectedItem.ending }}</ion-label>
+		</ion-item>
+		<br>
+		<ion-item>
+			<ion-label stacked><b>{{ 'TICKETS_DESCRIPTION1' | translate }}:</b></ion-label>
+			<ion-label>{{ selectedItem.description1 }}</ion-label>
+		</ion-item>
+		<ion-item>
+			<ion-label stacked><b>{{ 'TICKETS_DESCRIPTION2' | translate }}:</b></ion-label>
+			<ion-label>{{ selectedItem.description2 }}</ion-label>
+		</ion-item>
+		<ion-item>
+			<ion-label stacked><b>{{ 'TICKETS_DESCRIPTION3' | translate }}:</b></ion-label>
+			<ion-label>{{ selectedItem.description3 }}</ion-label>
+		</ion-item>
+		<br *ngIf="account.group==1">
+		<ion-item *ngIf="account.group==1">
+			<ion-label fixed><b>{{ 'CREATED' | translate }}:</b></ion-label>
+			<ion-label>{{ selectedItem.created }}</ion-label>
+		</ion-item>
+	</ion-list>
+	<!-- tab1 -->
+	<ion-list *ngIf="data.tabs==1" [class]="platform.width()<1000 ? 'list list-md listNarrow' : 'list list-md listWide'" no-lines>
+		<ion-item>
+			<ion-label stacked><b>{{ 'NOTE' | translate }}:</b></ion-label>
+			<ion-label>{{ selectedItem.note }}</ion-label>
+		</ion-item>
+	</ion-list>
+	<!-- tab2 -->
+	<ion-list *ngIf="data.tabs==2" [class]="platform.width()<1000 ? 'list list-md listNarrow' : 'list list-md listWide'" no-lines>
+		<ion-item>
+			<ion-label stacked><b>{{ 'EMPLOYEES' | translate }}:</b></ion-label>
+			<ion-label>{{ selectedItem.employees }}</ion-label>
+		</ion-item>
+	</ion-list>
+	<!-- end -->
+</ion-content>

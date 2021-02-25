@@ -1,0 +1,46 @@
+<ion-header>
+	<ion-navbar hideBackButton>
+		<ion-buttons margin-left left style="width:80px">
+			
+		</ion-buttons>
+		<ion-title text-center>{{ 'LOGIN' | translate }}</ion-title>
+		<ion-buttons margin-right right style="width:80px">
+			<button ion-button icon-only [disabled]="!warnings.length" (click)="showWarnings()">
+				<ion-icon name="warning"></ion-icon>
+				<ion-badge color="danger">{{ warnings.length }}</ion-badge>
+			</button>
+		</ion-buttons>
+	</ion-navbar>
+</ion-header>
+
+<ion-content>
+	<form (submit)="data">
+	<ion-list [class]="platform.width()<1000 ? 'list list-md listNarrow' : 'list list-md listWide'" no-lines>
+		<ion-item>
+			<ion-label fixed><b>NIP:</b></ion-label>
+			<ion-input name="login_nip" placeholder="NIP" [(ngModel)]="data.nip" type="text"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label fixed><b>{{ 'ACCOUNT_USERNAME' | translate }}:</b></ion-label>
+			<ion-input name="login_username" placeholder="{{ 'ACCOUNT_USERNAME' | translate }}" [(ngModel)]="data.username" type="text"></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label fixed><b>{{ 'ACCOUNT_PASSWORD' | translate }}:</b></ion-label>
+			<ion-input name="login_password" placeholder="{{ 'ACCOUNT_PASSWORD' | translate }}" [(ngModel)]="data.password" type="password"></ion-input>
+		</ion-item>
+		<br>
+		<ion-item>
+			<ion-label>{{ 'LOGIN_STAYLOGGED' | translate }}</ion-label>
+			<ion-checkbox disabled name="login_staylogged" [(ngModel)]="data.staylogged"></ion-checkbox>
+		</ion-item>
+	</ion-list>
+	</form>
+	<ion-toolbar [class]="platform.width()<1000 ? 'toolbar toolbar-md listNarrow' : 'toolbar toolbar-md listWide'" no-lines>
+		<br>
+		<div text-center>
+			<button ion-button color="primary" style="width:200px; max-width:40%;" (click)="doLogin()">{{ 'LOGIN' | translate }}</button>
+			<button ion-button color="lgray" style="width:200px; max-width:40%;" (click)="goRegister()">{{ 'REGISTER' | translate }}</button>
+		</div>
+		<br>
+	</ion-toolbar>
+</ion-content>

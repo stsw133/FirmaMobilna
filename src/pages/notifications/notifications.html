@@ -1,0 +1,64 @@
+<ion-header>
+	<ion-navbar hideBackButton>
+		<ion-buttons margin-left left style="width:80px">
+			<button ion-button icon-only navPop>
+				<ion-icon name="close"></ion-icon>
+			</button>
+		</ion-buttons>
+		<ion-title text-center>{{ 'NOTIFICATIONS' | translate }}</ion-title>
+		<ion-buttons margin-right right style="width:80px">
+			
+		</ion-buttons>
+	</ion-navbar>
+</ion-header>
+
+<ion-content>
+	<ion-toolbar [class]="platform.width()<1000 ? 'toolbar toolbar-md listNarrow' : 'toolbar toolbar-md listWide'" no-lines>
+		<ion-buttons left>
+			<button ion-button icon-only (click)="selectSearchbarFilter()">
+				<ion-icon name="funnel"></ion-icon>
+			</button>
+		</ion-buttons>
+		<ion-searchbar placeholder="{{ 'SEARCH' | translate }}" (ionInput)="searchItems($event)"></ion-searchbar>
+		<ion-buttons right>
+			<button ion-button icon-only (click)="refreshPage()">
+				<ion-icon name="refresh"></ion-icon>
+			</button>
+		</ion-buttons>
+	</ion-toolbar>
+	<br>
+	<ion-toolbar [class]="platform.width()<1000 ? 'toolbar toolbar-md listNarrow' : 'toolbar toolbar-md listWide'" no-lines>
+		<button ion-button [color]="data.tabs==0 ? 'primary' : 'lgray'" (click)="selectTabs(0)">{{ 'ACTIVE' | translate }}</button>
+		<button ion-button [color]="data.tabs==1 ? 'primary' : 'lgray'" (click)="selectTabs(1)">{{ 'ALL' | translate }}</button>
+	</ion-toolbar>
+	<br>
+	<ion-list [class]="platform.width()<1000 ? 'list list-md listNarrow' : 'list list-md listWide'" no-lines>
+		<ion-item-sliding *ngFor="let item of items">
+			<ion-item>
+				<div padding item-left>
+					{{ items.indexOf(item)+1 }}.
+				</div>
+				<div padding-left item-left>
+					{{ 'FROM' | translate }}: <b>{{ item.creatorName }}</b>
+					<h3>{{ item.content | translate }}: <u>{{ item.subject }}</u></h3>
+					<p>{{ item.created }}</p>
+				</div>
+				<div item-right>
+					<ion-checkbox color="primary" [(ngModel)]="item.read" (click)="setRead(item)"></ion-checkbox>
+				</div>
+			</ion-item>
+		</ion-item-sliding>
+		<ion-item *ngIf="items===undefined || items.length==0">
+			{{ 'WARNING_EMPTYLIST' | translate }}
+		</ion-item>
+	</ion-list>
+	<ion-item hidden>
+		<ion-label>{{ 'FILTERS' | translate }}</ion-label>
+		<ion-select [(ngModel)]="data.filterType" #searchbarFilter>
+			<ion-option value="creator">{{ 'FILTER_CREATOR' | translate }}</ion-option>
+			<ion-option value="content">{{ 'FILTER_CONTENT' | translate }}</ion-option>
+			<ion-option value="subject">{{ 'FILTER_SUBJECT' | translate }}</ion-option>
+			<ion-option value="timestamp">{{ 'FILTER_TIMESTAMP' | translate }}</ion-option>
+		</ion-select>
+	</ion-item>
+</ion-content>

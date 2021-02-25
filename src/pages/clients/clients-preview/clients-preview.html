@@ -1,0 +1,74 @@
+<ion-header>
+	<ion-navbar hideBackButton>
+		<ion-buttons margin-left left style="width:80px">
+			<button ion-button icon-only navPop>
+				<ion-icon name="close"></ion-icon>
+			</button>
+		</ion-buttons>
+		<ion-title text-center>{{ 'PREVIEW' | translate }}:<br><span style="font-size:14px">({{ selectedItem.id }}) {{ selectedItem.forename }} {{ selectedItem.lastname }}</span></ion-title>
+		<ion-buttons margin-right right style="width:80px">
+			
+		</ion-buttons>
+	</ion-navbar>
+</ion-header>
+
+<ion-content>
+	<ion-toolbar [class]="platform.width()<1000 ? 'toolbar toolbar-md listNarrow' : 'toolbar toolbar-md listWide'" no-lines>
+		<button ion-button [color]="data.tabs==0 ? 'primary' : 'lgray'" (click)="selectTabs(0)">{{ 'CLIENTS_GENERAL' | translate }}</button>
+		<button ion-button [color]="data.tabs==1 ? 'primary' : 'lgray'" (click)="selectTabs(1)">{{ 'CLIENTS_CONTACTS' | translate }}</button>
+		<button ion-button [color]="data.tabs==2 ? 'primary' : 'lgray'" (click)="selectTabs(2)">{{ 'CLIENTS_NOTES' | translate }}</button>
+	</ion-toolbar>
+	<br>
+	<!-- tab0 -->
+	<ion-list *ngIf="data.tabs==0" [class]="platform.width()<1000 ? 'list list-md listNarrow' : 'list list-md listWide'" no-lines>
+		<ion-item>
+			<ion-label fixed><b>{{ 'ACCOUNT_FORENAME' | translate }}:</b></ion-label>
+			<ion-label>{{ selectedItem.forename }}</ion-label>
+		</ion-item>
+		<ion-item>
+			<ion-label fixed><b>{{ 'ACCOUNT_LASTNAME' | translate }}:</b></ion-label>
+			<ion-label>{{ selectedItem.lastname }}</ion-label>
+		</ion-item>
+		<ion-item>
+			<ion-label fixed><b>{{ 'CLIENTS_PESEL' | translate }}:</b></ion-label>
+			<ion-label>{{ selectedItem.pesel }}</ion-label>
+		</ion-item>
+		<br>
+		<ion-item>
+			<ion-label fixed><b>{{ 'CLIENTS_TYPE' | translate }}:</b></ion-label>
+			<ion-label>{{ selectedItem.type }}</ion-label>
+		</ion-item>
+		<ion-item>
+			<ion-label fixed><b>{{ 'CLIENTS_STATUS' | translate }}:</b></ion-label>
+			<ion-label>{{ 'CLIENTS_STATUS_'+selectedItem.status.toUpperCase() | translate }}</ion-label>
+		</ion-item>
+		<br *ngIf="account.group==1">
+		<ion-item *ngIf="account.group==1">
+			<ion-label fixed><b>{{ 'CREATED' | translate }}:</b></ion-label>
+			<ion-label>{{ selectedItem.created }}</ion-label>
+		</ion-item>
+	</ion-list>
+	<!-- tab1 -->
+	<ion-list *ngIf="data.tabs==1" [class]="platform.width()<1000 ? 'list list-md listNarrow' : 'list list-md listWide'" no-lines>
+		<ion-item>
+			<ion-label fixed><b>{{ 'ACCOUNT_ADDRESS' | translate }}:</b></ion-label>
+			<ion-label>{{ selectedItem.address }}</ion-label>
+		</ion-item>
+		<ion-item>
+			<ion-label fixed><b>{{ 'ACCOUNT_PHONE' | translate }}:</b></ion-label>
+			<ion-label>{{ selectedItem.phone }}</ion-label>
+		</ion-item>
+		<ion-item>
+			<ion-label fixed><b>{{ 'ACCOUNT_EMAIL' | translate }}:</b></ion-label>
+			<ion-label>{{ selectedItem.email }}</ion-label>
+		</ion-item>
+	</ion-list>
+	<!-- tab2 -->
+	<ion-list *ngIf="data.tabs==2" [class]="platform.width()<1000 ? 'list list-md listNarrow' : 'list list-md listWide'" no-lines>
+		<ion-item>
+			<ion-label stacked><b>{{ 'CLIENTS_NOTE' | translate }}:</b></ion-label>
+			<ion-label>{{ selectedItem.note }}</ion-label>
+		</ion-item>
+	</ion-list>
+	<!-- end -->
+</ion-content>

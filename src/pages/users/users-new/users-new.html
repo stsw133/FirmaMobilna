@@ -1,0 +1,69 @@
+<ion-header>
+	<ion-navbar hideBackButton>
+		<ion-buttons margin-left left style="width:80px">
+			<button ion-button icon-only navPop>
+				<ion-icon name="close"></ion-icon>
+			</button>
+		</ion-buttons>
+		<ion-title text-center>{{ 'USERS_NEW' | translate }}</ion-title>
+		<ion-buttons margin-right right style="width:80px">
+			
+		</ion-buttons>
+	</ion-navbar>
+</ion-header>
+
+<ion-content>
+	<ion-list [class]="platform.width()<1000 ? 'list list-md listNarrow' : 'list list-md listWide'" no-lines>
+		<ion-item>
+			<ion-label fixed><b>{{ 'ACCOUNT_FORENAME' | translate }}:</b></ion-label>
+			<ion-input placeholder="{{ 'ACCOUNT_FORENAME' | translate }}" [(ngModel)]="data.forename" type="text" clearInput></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label fixed><b>{{ 'ACCOUNT_LASTNAME' | translate }}:</b></ion-label>
+			<ion-input placeholder="{{ 'ACCOUNT_LASTNAME' | translate }}" [(ngModel)]="data.lastname" type="text" clearInput></ion-input>
+		</ion-item>
+		<br>
+		<ion-item>
+			<ion-label fixed><b>{{ 'ACCOUNT_EMAIL' | translate }}:</b></ion-label>
+			<ion-input placeholder="{{ 'ACCOUNT_EMAIL' | translate }}" [(ngModel)]="data.email" type="email" clearInput></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label fixed><b>{{ 'ACCOUNT_PHONE' | translate }}:</b></ion-label>
+			<ion-input placeholder="{{ 'ACCOUNT_PHONE' | translate }}" [(ngModel)]="data.phone" type="text" clearInput></ion-input>
+		</ion-item>
+		<br>
+		<ion-item>
+			<ion-label fixed><b>{{ 'ACCOUNT_USERNAME' | translate }}:</b></ion-label>
+			<ion-input placeholder="{{ 'ACCOUNT_USERNAME' | translate }}" [(ngModel)]="data.username" type="text" clearInput></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label fixed><b>{{ 'ACCOUNT_PASSWORD' | translate }}:</b></ion-label>
+			<ion-input placeholder="{{ 'ACCOUNT_PASSWORD' | translate }}" [(ngModel)]="data.password" type="password" clearInput></ion-input>
+		</ion-item>
+		<ion-item>
+			<ion-label fixed><b>{{ 'REPEAT' | translate }}:</b></ion-label>
+			<ion-input placeholder="{{ 'ACCOUNT_PASSWORD' | translate }}" [(ngModel)]="data.repass" type="password" clearInput></ion-input>
+		</ion-item>
+		<br>
+		<ion-item>
+			<ion-label fixed><b>{{ 'ACCOUNT_GROUP' | translate }}:</b></ion-label>
+			<ion-select [(ngModel)]="data.group">
+				<ion-option value="2">Standard</ion-option>
+				<!-- <ion-option *ngIf="account.group==1" value="moderator">moderator</ion-option> -->
+			</ion-select>
+		</ion-item>
+		<ion-item>
+			<ion-label fixed><b>{{ 'LANGUAGE' | translate }}:</b></ion-label>
+			<ion-select [(ngModel)]="data.language">
+				<ion-option value="en">{{ 'LANGUAGE_EN' | translate }}</ion-option>
+				<ion-option value="pl">{{ 'LANGUAGE_PL' | translate }}</ion-option>
+			</ion-select>
+		</ion-item>
+		<br>
+		<div text-center>
+			<button ion-button color="secondary" style="width:200px; max-width:40%;" (click)="saveChanges()">{{ 'SAVE' | translate }}</button>
+			<button ion-button color="light" style="width:200px; max-width:40%;" navPop>{{ 'CANCEL' | translate }}</button>
+		</div>
+		<br>
+	</ion-list>
+</ion-content>

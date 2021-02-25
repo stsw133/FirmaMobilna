@@ -1,0 +1,53 @@
+<ion-header>
+	<ion-navbar hideBackButton>
+		<ion-buttons margin-left left style="width:80px">
+			<button ion-button icon-only navPop>
+				<ion-icon name="close"></ion-icon>
+			</button>
+		</ion-buttons>
+		<ion-title text-center>{{ 'PROFILE' | translate }}</ion-title>
+		<ion-buttons margin-right right style="width:80px">
+			
+		</ion-buttons>
+	</ion-navbar>
+</ion-header>
+
+<ion-content>
+	<ion-list [class]="platform.width()<1000 ? 'list list-md listNarrow' : 'list list-md listWide'" no-lines>
+		<ion-item>
+			<ion-label fixed><b>{{ 'ACCOUNT_FORENAME' | translate }}:</b></ion-label>
+			<ion-label *ngIf="account.forename!==undefined">{{ account.forename }}</ion-label>
+		</ion-item>
+		<ion-item>
+			<ion-label fixed><b>{{ 'ACCOUNT_LASTNAME' | translate }}:</b></ion-label>
+			<ion-label *ngIf="account.lastname!==undefined">{{ account.lastname }}</ion-label>
+		</ion-item>
+		<br>
+		<ion-item>
+			<ion-label fixed><b>{{ 'ACCOUNT_EMAIL' | translate }}:</b></ion-label>
+			<ion-label *ngIf="account.email!==undefined">{{ account.email }}</ion-label>
+		</ion-item>
+		<ion-item>
+			<ion-label fixed><b>{{ 'ACCOUNT_PHONE' | translate }}:</b></ion-label>
+			<ion-label *ngIf="account.phone!==undefined">{{ account.phone }}</ion-label>
+		</ion-item>
+		<br>
+		<ion-item>
+			<ion-label fixed><b>{{ 'ACCOUNT_GROUP' | translate }}:</b></ion-label>
+			<ion-label *ngIf="account.group!==undefined">{{ data.groupName.charAt(0).toUpperCase()+data.groupName.slice(1) }}</ion-label>
+		</ion-item>
+		<!-- <ion-item> -->
+			<!-- <ion-label fixed style="opacity:1"><b>{{ 'ACTIVE' | translate }}:</b></ion-label> -->
+			<!-- <ion-toggle disabled style="opacity:1" *ngIf="account.active!==undefined" [checked]="account.active"></ion-toggle> -->
+		<!-- </ion-item> -->
+		<ion-item>
+			<ion-label fixed><b>{{ 'LANGUAGE' | translate }}:</b></ion-label>
+			<ion-label *ngIf="account.language!==undefined">{{ 'LANGUAGE_'+account.language.toUpperCase() | translate }}</ion-label>
+		</ion-item>
+		<br>
+		<ion-item>
+			<ion-label fixed><b>{{ 'CREATED' | translate }}:</b></ion-label>
+			<ion-label *ngIf="account.created!==undefined">{{ account.created.slice(0,10) }}, {{ account.created.slice(11,19) }}</ion-label>
+		</ion-item>
+	</ion-list>
+</ion-content>
